@@ -17,7 +17,14 @@
 #include <crypto/internal/skcipher.h>
 #include <linux/init.h>
 #include <linux/module.h>
+/*
+ * ANDROID: crc fix for commit e307c54ac819 ("crypto: null - Use spin lock instead of mutex")
+ */
+#ifndef __GENKSYMS__
 #include <linux/spinlock.h>
+#else
+#include <linux/mm.h>
+#endif
 #include <linux/string.h>
 
 static DEFINE_SPINLOCK(crypto_default_null_skcipher_lock);
